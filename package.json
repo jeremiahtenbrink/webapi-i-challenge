@@ -2,7 +2,7 @@
   "name": "nodemini",
   "version": "1.0.0",
   "description": "Express Demo",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "server": "nodemon index.js"
   },
@@ -21,7 +21,11 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "@types/node": "^11.11.3",
+    "body": "^5.1.0",
+    "express": "^4.16.4",
     "knex": "^0.16.3",
+    "parser": "^0.1.4",
     "sqlite3": "^4.0.6"
   }
 }

@@ -49,7 +49,7 @@ Users in the database conform to the following object structure:
 
 ### Write endpoints to perform the following queries.
 
-Inside `index.js` add the code necessary to implement the following _endpoints_:
+Inside `index.ts` add the code necessary to implement the following _endpoints_:
 
 | Method | URL            | Description                                                                                                                       |
 | ------ | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
