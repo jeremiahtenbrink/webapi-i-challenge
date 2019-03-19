@@ -62,7 +62,7 @@ server.put('/api/users/:id', (req, res) => {
     db.update(id, changes)
         .then(updated => {
             if(!!updated){
-                const user = db.findById(id)
+                db.find()
                     .then(user => {
                         res.status(200).json(user);
                     })
@@ -85,12 +85,16 @@ server.post('/api/users', (req, res) => {
 
     db.insert(user)
         .then(ressult => {
-            db.findById(ressult.id)
-                .then(user => {
-                    res.status(201).json(user);
-                })
-        }).catch(err => {
-        res.status(500).json({message: 'There was an error while saving the user to the database'});
+            if(ressult){
+                db.find().then(users => res.status(201).json(users));
+                return;
+            }
+                throw {status: 500, message: "There was an error while saving the user to the database" }
+
+
+        })
+        .catch(err => {
+        res.status(err.status || 500).json({message: err.message ? err.message : 'There was an error while saving the user to the database'});
     });
 
 });

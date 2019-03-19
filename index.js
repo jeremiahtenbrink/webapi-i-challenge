@@ -53,7 +53,7 @@ server.put('/api/users/:id', function (req, res) {
     db.update(id, changes)
         .then(function (updated) {
         if (!!updated) {
-            var user = db.findById(id)
+            db.find()
                 .then(function (user) {
                 res.status(200).json(user);
             });
@@ -73,12 +73,13 @@ server.post('/api/users', function (req, res) {
     }
     db.insert(user)
         .then(function (ressult) {
-        db.findById(ressult.id)
-            .then(function (user) {
-            res.status(201).json(user);
-        });
+        if (ressult) {
+            db.find().then(function (users) { return res.status(201).json(users); });
+            return;
+        }
+        throw { status: 500, message: "There was an error while saving the user to the database" };
     })["catch"](function (err) {
-        res.status(500).json({ message: 'There was an error while saving the user to the database' });
+        res.status(err.status || 500).json({ message: err.message ? err.message : 'There was an error while saving the user to the database' });
     });
 });
 server.listen(4000, function () {
